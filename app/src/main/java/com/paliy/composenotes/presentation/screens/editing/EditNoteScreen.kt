@@ -1,6 +1,9 @@
 package com.paliy.composenotes.presentation.screens.editing
 
 import android.content.Context
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,6 +37,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.paliy.composenotes.domain.ContentItem
 import com.paliy.composenotes.presentation.screens.creation.CreateNoteCommand
+import com.paliy.composenotes.presentation.ui.theme.Content
+import com.paliy.composenotes.presentation.ui.theme.CustomIcons
 import com.paliy.composenotes.presentation.utils.DateFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,6 +60,15 @@ fun EditNoteScreen(
     val state = viewModel.state.collectAsState()
     val currentState = state.value
 
+    val imagePicker = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent(),
+        onResult = {uri ->
+            uri?.let {
+                viewModel.processCommand(EditNoteCommand.AddImage(it))
+            }
+        }
+    )
+
     when(currentState) {
         is EditNoteState.Editing -> {
             //LaunchedEffect(key1 = currentState.isSaved) { }
@@ -75,7 +89,16 @@ fun EditNoteScreen(
                             actionIconContentColor = MaterialTheme.colorScheme.onSurface),
                         actions = {
                             Icon(
-                                modifier = Modifier.padding(end = 16.dp)
+                                modifier = Modifier.clickable{
+                                        imagePicker.launch("image/*")
+                                    }
+                                    .padding(end = 16.dp),
+                                imageVector = CustomIcons.AddPhoto,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurface
+                            )
+                            Icon(
+                                modifier = Modifier.padding(end = 24.dp)
                                     .clickable {
                                         viewModel.processCommand(EditNoteCommand.Delete)
                                     },
@@ -92,7 +115,7 @@ fun EditNoteScreen(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = null
                             )
-                        }
+                        },
                     )
                 }
             ) {innerPadding ->
@@ -132,15 +155,16 @@ fun EditNoteScreen(
                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.onSurface
                     )
-                    currentState.note.content.filterIsInstance<ContentItem.Text>().forEach {contentIten ->
-                        TextContent(
-                            modifier = Modifier.weight(1f),
-                            text = contentIten.content,
-                            onTextChange = {
-                                viewModel.processCommand(EditNoteCommand.InputContent(it))
-                            }
-                        )
-                    }
+                    Content(
+                        modifier = Modifier.weight(1f),
+                        content = currentState.note.content,
+                        onDeleteImageClick = {
+                            viewModel.processCommand(EditNoteCommand.DeleteImage(it))
+                        },
+                        onTextChanged = {index, text ->
+                            viewModel.processCommand(EditNoteCommand.InputContent(content = text, index = index))
+                        }
+                    )
 
                     /*TextField(
                         modifier = Modifier.fillMaxWidth()

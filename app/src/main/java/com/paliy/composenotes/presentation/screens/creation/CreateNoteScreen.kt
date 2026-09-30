@@ -50,6 +50,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.paliy.composenotes.domain.ContentItem
+import com.paliy.composenotes.presentation.ui.theme.Content
 import com.paliy.composenotes.presentation.ui.theme.CustomIcons
 import com.paliy.composenotes.presentation.utils.DateFormatter
 import java.nio.file.WatchEvent
@@ -199,7 +200,7 @@ fun CreateNoteScreen(
 }
 
 
-@Composable
+/*@Composable
 private fun Content(
     modifier: Modifier = Modifier,
     content : List<ContentItem>,
@@ -330,4 +331,4 @@ private fun TextContent(
             )
         }
     )
-}
+}*/
