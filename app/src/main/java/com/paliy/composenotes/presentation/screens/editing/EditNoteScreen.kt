@@ -29,12 +29,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.paliy.composenotes.R
 import com.paliy.composenotes.domain.ContentItem
 import com.paliy.composenotes.presentation.screens.creation.CreateNoteCommand
 import com.paliy.composenotes.presentation.ui.theme.Content
@@ -89,7 +91,8 @@ fun EditNoteScreen(
                             actionIconContentColor = MaterialTheme.colorScheme.onSurface),
                         actions = {
                             Icon(
-                                modifier = Modifier.clickable{
+                                modifier = Modifier
+                                    .clickable {
                                         imagePicker.launch("image/*")
                                     }
                                     .padding(end = 16.dp),
@@ -98,7 +101,8 @@ fun EditNoteScreen(
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                             Icon(
-                                modifier = Modifier.padding(end = 24.dp)
+                                modifier = Modifier
+                                    .padding(end = 24.dp)
                                     .clickable {
                                         viewModel.processCommand(EditNoteCommand.Delete)
                                     },
@@ -108,7 +112,8 @@ fun EditNoteScreen(
                         },
                         navigationIcon = {
                             Icon(
-                                modifier = Modifier.padding(start = 16.dp, end = 8.dp)
+                                modifier = Modifier
+                                    .padding(start = 16.dp, end = 8.dp)
                                     .clickable {
                                         viewModel.processCommand(EditNoteCommand.Back)
                                     },
@@ -123,7 +128,8 @@ fun EditNoteScreen(
                     modifier = Modifier.padding(innerPadding)
                 ) {
                     TextField(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .padding(horizontal = 8.dp),
                         value = currentState.note.title,
                         onValueChange = {
@@ -209,8 +215,7 @@ fun EditNoteScreen(
                         )
                     ) {
                         Text(
-                            text = "Save Note"
-
+                            text = stringResource(R.string.save_note)
                         )
                     }
                 }
@@ -233,7 +238,8 @@ private fun TextContent(
     onTextChange:(String)-> Unit
 ){
     TextField(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(horizontal = 8.dp),
         value = text,
         onValueChange = onTextChange,

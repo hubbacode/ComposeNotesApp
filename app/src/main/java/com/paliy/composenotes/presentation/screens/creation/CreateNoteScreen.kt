@@ -41,6 +41,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -184,8 +185,7 @@ fun CreateNoteScreen(
                         )
                     ) {
                         Text(
-                            text = "Save Note"
-
+                            text = stringResource(com.paliy.composenotes.R.string.save_note)
                         )
                     }
                 }

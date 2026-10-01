@@ -36,10 +36,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -89,7 +91,8 @@ fun NotesScreen(
         {
             item {
                 Title(modifier = Modifier.padding(horizontal = 24.dp),
-                    text = "All Notes")
+                    text = stringResource(R.string.all_notes)
+                )
             }
             item { Spacer(modifier = Modifier.height(16.dp)) }
             item {
@@ -103,7 +106,8 @@ fun NotesScreen(
             item { Spacer(modifier = Modifier.height(24.dp)) }
             if (state.pinnedNotes.isEmpty()){} else{
                 item { Subtitle(modifier = Modifier.padding(horizontal = 24.dp),
-                    text = "Pinned") }
+                    text = stringResource(R.string.pinned)
+                ) }
                 item { Spacer(modifier = Modifier.height(16.dp)) }
             }
             item {
@@ -131,7 +135,8 @@ fun NotesScreen(
             }
             item { Spacer(modifier = Modifier.height(24.dp)) }
             item { Subtitle(modifier = Modifier.padding(horizontal = 24.dp),
-                text = "Others") }
+                text = stringResource(R.string.others)
+            ) }
             item { Spacer(modifier = Modifier.height(16.dp)) }
             itemsIndexed(
                 items = state.otherNotes,
@@ -143,7 +148,8 @@ fun NotesScreen(
 
                 if (imageUrl == null){
                     NoteCard(
-                        modifier = modifier.fillMaxWidth()
+                        modifier = modifier
+                            .fillMaxWidth()
                             .padding(horizontal = 24.dp),
                         note = note,
                         onNoteClick = onNoteClick,
@@ -155,7 +161,8 @@ fun NotesScreen(
                     )
                 }else{
                     NoteCardWithImage(
-                        modifier = modifier.fillMaxWidth()
+                        modifier = modifier
+                            .fillMaxWidth()
                             .padding(horizontal = 24.dp),
                         note = note,
                         onNoteClick = onNoteClick,
@@ -196,7 +203,8 @@ private fun SearchBar(
     onQueryChange: (String) -> Unit
 ){
     TextField(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .background(color = MaterialTheme.colorScheme.surface)
             .border(
                 width = 1.dp,
@@ -322,7 +330,8 @@ fun NoteCardWithImage(
     ) {
         Box{
             AsyncImage(
-                modifier = Modifier.heightIn(max = 120.dp)
+                modifier = Modifier
+                    .heightIn(max = 120.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp)),
                 model = imageUrl,
@@ -330,7 +339,17 @@ fun NoteCardWithImage(
                 contentScale = ContentScale.FillWidth
             )
             Column(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(
+                        brush = Brush.verticalGradient(
+                            listOf(
+                                Color.Transparent,
+                                MaterialTheme.colorScheme.onSurface
+                            )
+                        )
+                    )
                     .padding(16.dp)
                     .align(Alignment.BottomStart)
             ){
