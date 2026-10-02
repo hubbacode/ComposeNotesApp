@@ -2,6 +2,7 @@
 agp = "9.3.3"
 coilCompose = "3.6.3"
 coreKtx = "1.19.1"
+coreSplashscreen = "1.2.0"
 hiltAndroidVersion = "2.60.1"
 hiltNavigationCompose = "1.4.0"
 junit = "4.13.2"
@@ -21,6 +22,7 @@ hiltAndroid = "2.60.1"
 [libraries]
 androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "materialIconsCore" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
